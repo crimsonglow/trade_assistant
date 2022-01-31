@@ -37,7 +37,6 @@ module ApiMethods
     timeInForce = 'IOC'
     price = coin_price
     newOrderRespType = 'FULL'
-
   end
   # https://binance-docs.github.io/apidocs/futures/en/#cancel-order-trade
   def cancel_trade
