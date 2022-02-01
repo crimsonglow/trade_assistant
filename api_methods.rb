@@ -1,11 +1,8 @@
-require 'httparty'
-require 'open-uri'
-require 'json'
-require_relative 'signaturebuilder'
+require_relative 'signature'
+require_relative 'request'
 
 module ApiMethods
-
-  URL = 'https://fapi/binance.com'
+  include Builder
 
   # https://binance-docs.github.io/apidocs/futures/en/#market-data-endpoints
   def ping
@@ -14,7 +11,7 @@ module ApiMethods
 
   # https://binance-docs.github.io/apidocs/futures/en/#check-server-time
   def check_server_time
-
+    Request.send(path: "/api/v1/time")
   end
 
   # https://binance-docs.github.io/apidocs/futures/en/#exchange-information
@@ -28,16 +25,32 @@ module ApiMethods
   end
 
   # https://binance-docs.github.io/apidocs/futures/en/#new-order-trade
-  def new_trade(coin:, purchase_type:, type_trade: 'LIMIT_MAKER', quantity_coin:, coin_price:)
-    symbol = coin
-    side = purchase_type
-    type = type_trade
-    quantity = quantity_coin
+  def new_trade(symbol:, side:, type: 'LIMIT_MAKER', quantity:, price:)
     timestamp
-    timeInForce = 'IOC'
-    price = coin_price
-    newOrderRespType = 'FULL'
+    parameters{
+      symbol: symbol,
+      side: side,
+      type: type,
+      quantity:  quantity,
+      price: price,
+      timeInForce: 'IOC',
+      newOrderRespType: 'FULL'}
+      Request.send(path: "/api/v1/trades", parameters: parameters)
   end
+
+    def new_trade_test
+    timestamp
+    parameters{
+      symbol:'BNBUSDT',
+      side: 'BUY',
+      type: 'MARKET',
+      quantity: 0.039,
+      price: nil,
+      timeInForce: 'IOC',
+      newOrderRespType: 'FULL'}
+      Request.send(path: "/api/v1/trades", parameters: parameters)
+  end
+
   # https://binance-docs.github.io/apidocs/futures/en/#cancel-order-trade
   def cancel_trade
 
@@ -58,13 +71,6 @@ module ApiMethods
   def change_initial_leverage
 
   end
-
-  def get
-
-  end
-
-  def post
-
-  end
 end
+
 
