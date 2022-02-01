@@ -7,6 +7,7 @@ end
 class Request
   def send(method: :get, path: "/", parameters: {})
     parameters.delete_if { |k, v| v.nil? }
+    self.base_uri('https://api.binance.com')
 
     case method
       when :get
@@ -23,6 +24,6 @@ class Request
   def all_headers
     headers
     headers = {}
-    headers["X-MBX-APIKEY"] = API_KEY
+    headers['X-MBX-APIKEY'] = API_KEY
   end
 end
