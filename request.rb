@@ -1,36 +1,36 @@
-require 'httparty'
-require_relative 'signature'
-# https://www.rubydoc.info/github/jnunemaker/httparty/HTTParty/ClassMethods
-class Http
-  include HTTParty
-  base_uri 'https://api.binance.com'
-end
+module Binance
+  class Http
+    include HTTParty
+    base_uri 'https://api.binance.com'
+  end
 
-class Request
-  include SignatureBuilder
-  class << self
-    def send(method: :get, path: "/", parameters: {})
-      parameters.delete_if { |k, v| v.nil? }
+  class Request
+    class << self
+      def send(method: :get, path: "/", parameters: {})
+        parameters.delete_if { |k, v| v.nil? }
 
-      call_signature = signature(parameters)
-      parameters.merge!(call_signature)
+        if method == :post
+          call_signature = SignatureBuilder.signature(parameters)
+          parameters.merge!(call_signature)
+        end
 
-      case method
-        when :get
-          response = Http.get(path, query: parameters, headers: all_headers)
-        when :post
-          response = Http.post(path, query: parameters, headers: all_headers)
-        when :put
-          response = Http.put(path, query: parameters, headers: all_headers)
-        when :delete
-          response = Http.delete(path, query: parameters, headers: all_headers)
+        case method
+          when :get
+            response = Http.get(path)
+          when :post
+            response = Http.post(path, query: parameters, headers: all_headers)
+          when :put
+            response = Http.put(path, query: parameters, headers: all_headers)
+          when :delete
+            response = Http.delete(path, query: parameters, headers: all_headers)
+        end
       end
-    end
 
-    def all_headers
-      headers = {}
-      headers
-      headers['X-MBX-APIKEY'] = API_KEY
+      def all_headers
+        headers = {}
+        headers
+        headers['X-MBX-APIKEY'] = API_KEY
+      end
     end
   end
 end

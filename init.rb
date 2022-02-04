@@ -1,9 +1,11 @@
-require_relative 'skapl_helper'
+require_relative 'binance'
 
-start = SkalpHelper.new(
-                        coin_symbol: 'BNBUSDT',
-                        entry_price:,
-                        position_types: 'long'
-                        )
+# start = Binance::SkalpHelper.new(
+#                         coin_symbol: 'BNBUSDT',
+#                         entry_price: 300,
+#                         position_types: 'long'
+#                         )
 
-start.indication_position
+# start.indication_position
+
+puts Binance::ApiMethods.new_trade_test

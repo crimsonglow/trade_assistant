@@ -1,9 +1,11 @@
-module Websocket
-  class << self
+module Binance
+  class WebSocket
+    class << self
 
-    def streams_prise
+      def streams_prise
+
+      end
 
     end
-
   end
 end
