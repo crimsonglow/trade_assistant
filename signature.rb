@@ -10,7 +10,7 @@ module SignatureBuilder
       (Time.now.to_f * 1000).to_i.to_s
     end
 
-    def signature_bild(payload: payload)
+    def signature_bild(payload:)
       digest = OpenSSL::Digest::SHA256.new
       OpenSSL::HMAC.hexdigest(digest, API_KEY || SECRET_KEY, payload)
     end

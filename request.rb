@@ -1,4 +1,5 @@
 require 'httparty'
+require_relative 'signature'
 # https://www.rubydoc.info/github/jnunemaker/httparty/HTTParty/ClassMethods
 class Http
   include HTTParty
@@ -6,9 +7,13 @@ class Http
 end
 
 class Request
+  include SignatureBuilder
   class << self
     def send(method: :get, path: "/", parameters: {})
       parameters.delete_if { |k, v| v.nil? }
+
+      call_signature = signature(parameters)
+      parameters.merge!(call_signature)
 
       case method
         when :get
