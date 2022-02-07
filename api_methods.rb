@@ -42,7 +42,7 @@ module Binance
 
         def new_trade_test
         timestamp
-        parameters{
+        parameters = {
           symbol:'BNBUSDT',
           side: 'BUY',
           type: 'MARKET',
