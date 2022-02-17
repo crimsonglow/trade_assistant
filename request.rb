@@ -1,35 +1,36 @@
 module Binance
-  class Http
-    include HTTParty
-    base_uri 'https://api.binance.com'
-  end
-
   class Request
-    class << self
+   include HTTParty
+   class << self
       def send(method: :get, path: "/", parameters: {})
+        base_uri 'https://fapi.binance.com'
         parameters.delete_if { |k, v| v.nil? }
+        parameters.merge!(timestamp: timestamp, recvWindow: 7000)
 
-        if method == :post
-          call_signature = SignatureBuilder.signature(parameters)
-          parameters.merge!(call_signature)
-        end
+        signature = SignatureBuilder.request(parameters: parameters)
+        parameters.merge!(signature: signature)
 
         case method
           when :get
-            response = Http.get(path)
+            response = get(path, query: parameters, headers: all_headers)
           when :post
-            response = Http.post(path, query: parameters, headers: all_headers)
+            response = post(path, query: parameters, headers: all_headers)
           when :put
-            response = Http.put(path, query: parameters, headers: all_headers)
+            response = put(path, query: parameters, headers: all_headers)
           when :delete
-            response = Http.delete(path, query: parameters, headers: all_headers)
+            response = delete(path, query: parameters, headers: all_headers)
         end
+      end
+
+      def timestamp
+        (Time.now.to_f * 1000).to_i.to_s
       end
 
       def all_headers
         headers = {}
+        headers["Content-Type"] = "application/json; charset=utf-8"
+        headers["X-MBX-APIKEY"] = API_KEY if API_KEY
         headers
-        headers['X-MBX-APIKEY'] = API_KEY
       end
     end
   end
