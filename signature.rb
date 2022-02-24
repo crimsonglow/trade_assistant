@@ -1,5 +1,5 @@
 module Binance
-  class SignatureBuilder
+  class Signature
     class << self
       def request(parameters:)
         payload = parameters.map { |key, value| "#{key}=#{value}" }.join("&")

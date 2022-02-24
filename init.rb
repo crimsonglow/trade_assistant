@@ -1,11 +1,13 @@
 require_relative 'binance'
+# byebug
+# puts Binance::ApiMethods.futures_account_balance
+# puts Binance::ApiMethods.change_initial_leverage(symbol: 'BNBUSDT', leverage: 2)
 
-# start = Binance::SkalpHelper.new(
-#                         coin_symbol: 'BNBUSDT',
-#                         entry_price: 300,
-#                         position_types: 'long'
-#                         )
+Binance::SkalpHelper.coin_symbol = 'BNBUSDT'
+Binance::SkalpHelper.entry_price = 367.5
+Binance::SkalpHelper.quantity_coins = 0.04
+Binance::SkalpHelper.position_types = 'short'  #'long','short'
 
-# start.indication_position
+# puts Binance::SkalpHelper.prise_stop_position_long
 
-puts Binance::ApiMethods.new_trade_test
+Binance::WebSocket.mark_prise_stream_request

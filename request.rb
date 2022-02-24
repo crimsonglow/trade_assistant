@@ -7,7 +7,7 @@ module Binance
         parameters.delete_if { |k, v| v.nil? }
         parameters.merge!(timestamp: timestamp, recvWindow: 7000)
 
-        signature = SignatureBuilder.request(parameters: parameters)
+        signature = Signature.request(parameters: parameters)
         parameters.merge!(signature: signature)
 
         case method
@@ -21,6 +21,8 @@ module Binance
             response = delete(path, query: parameters, headers: all_headers)
         end
       end
+
+    private
 
       def timestamp
         (Time.now.to_f * 1000).to_i.to_s

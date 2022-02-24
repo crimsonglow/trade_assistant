@@ -24,17 +24,18 @@ module Binance
       end
 
       # https://binance-docs.github.io/apidocs/futures/en/#new-order-trade
-      def new_trade(symbol:, side:, type: 'MAKER', quantity:, price: nil)
+
+      def create_trade(symbol:, side:, type: 'MARKET', quantity: nil, price: nil, timeInForce: nil)
         parameters = {
           symbol: symbol,
-          side: side,
+          side: side, # 'BUY', 'SELL'
           type: type,
           quantity:  quantity,
           price: price,
-          timeInForce: 'IOC',
+          timeInForce: timeInForce,
           newOrderRespType: 'FULL'
         }
-          Request.send(method: :post, path: "/api/v1/order", parameters: parameters)
+          Request.send(method: :post, path: "/fapi/v1/order", parameters: parameters)
       end
 
       # https://binance-docs.github.io/apidocs/futures/en/#cancel-order-trade
