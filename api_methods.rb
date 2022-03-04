@@ -24,8 +24,7 @@ module Binance
       end
 
       # https://binance-docs.github.io/apidocs/futures/en/#new-order-trade
-
-      def create_trade(symbol:, side:, type: 'MARKET', quantity: nil, price: nil, timeInForce: nil)
+      def create_trade(symbol:, side:, type: 'MARKET', quantity: nil, price: nil, timeInForce: 'GTC')
         parameters = {
           symbol: symbol,
           side: side, # 'BUY', 'SELL'
@@ -66,6 +65,7 @@ module Binance
           leverage: leverage}
         Request.send(method: :post, path: '/fapi/v1/leverage', parameters: parameters)
       end
+
     end
   end
 end
