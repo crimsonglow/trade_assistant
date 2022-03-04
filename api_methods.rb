@@ -65,7 +65,6 @@ module Binance
           leverage: leverage}
         Request.send(method: :post, path: '/fapi/v1/leverage', parameters: parameters)
       end
-
     end
   end
 end
