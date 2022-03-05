@@ -11,14 +11,14 @@ module Binance
         parameters.merge!(signature: signature)
 
         case method
-          when :get
-            response = get(path, query: parameters, headers: all_headers)
-          when :post
-            response = post(path, query: parameters, headers: all_headers)
-          when :put
-            response = put(path, query: parameters, headers: all_headers)
-          when :delete
-            response = delete(path, query: parameters, headers: all_headers)
+        when :get
+          response = get(path, query: parameters, headers: all_headers)
+        when :post
+          response = post(path, query: parameters, headers: all_headers)
+        when :put
+          response = put(path, query: parameters, headers: all_headers)
+        when :delete
+          response = delete(path, query: parameters, headers: all_headers)
         end
       end
 
