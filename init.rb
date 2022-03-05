@@ -1,13 +1,16 @@
 require_relative 'binance'
-# byebug
+
 # puts Binance::ApiMethods.futures_account_balance
-# puts Binance::ApiMethods.change_initial_leverage(symbol: 'BNBUSDT', leverage: 2)
+# puts Binance::ApiMethods.change_initial_leverage(symbol: 'SANDUSDT', leverage: 11)
 
-Binance::SkalpHelper.coin_symbol = 'BNBUSDT'
-Binance::SkalpHelper.entry_price = 367.5
-Binance::SkalpHelper.quantity_coins = 0.04
-Binance::SkalpHelper.position_types = 'short'  #'long','short'
+request = Binance::SkalpHelper.new(
+  #coin_symbol: transfer to terminal before calling "COIN=SANDUSDT ruby init.rb"
+  entry_price: float,
+  quantity_coins: float,
+  prise_close_trade: float,
+  prise_without_loss: float,
+  long_position: false,
+  short_position: false
+)
 
-# puts Binance::SkalpHelper.prise_stop_position_long
-
-Binance::WebSocket.mark_prise_stream_request
+request.start_skalp_helper
