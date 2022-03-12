@@ -24,7 +24,7 @@ module Binance
       end
 
       # https://binance-docs.github.io/apidocs/futures/en/#new-order-trade
-      def create_trade(symbol:, side:, type: 'MARKET', quantity: nil, price: nil, timeInForce: 'GTC')
+      def create_trade(symbol:, side:, type: 'MARKET', quantity: nil, price: nil, timeInForce: nil)
         parameters = {
           symbol: symbol,
           side: side, # 'BUY', 'SELL'

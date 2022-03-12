@@ -21,7 +21,7 @@ module Binance
 protected
 
     def stream_price_behavior
-      proc do |e|
+     proc do |e|
         data = JSON.parse(e.data, symbolize_names: true)
         stream_price = data.dig(:k, :c).to_f
 
@@ -142,7 +142,7 @@ private
     end
 
     def try_to_close_via_take_profit_short(stream_price:)
-      if stream_price < take_profit && allow_trade == true
+      if stream_price < take_profit
         puts "Closed position in profit. Prce: #{stream_price}"
         close_trade
         exit
@@ -150,7 +150,7 @@ private
     end
 
     def try_to_close_via_stop_price_short(stream_price:)
-      if stream_price > stop_lose && allow_trade == true
+      if stream_price > stop_lose
         puts "Closed position to stop. Prce: #{stream_price}"
         close_trade
         exit
@@ -158,7 +158,7 @@ private
     end
 
     def try_to_close_in_breakeven_short(stream_price:)
-      if stream_price > breakeven && allow_trade == true
+      if stream_price > breakeven
        @allow_to_close_breakeven = true
       elsif stream_price > entry_price && allow_to_close_breakeven == true
         puts "Closed position in without loss. Prce: #{stream_price}"
