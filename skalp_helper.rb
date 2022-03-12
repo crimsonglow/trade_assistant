@@ -21,7 +21,7 @@ module Binance
 protected
 
     def stream_price_behavior
-     proc do |e|
+      proc do |e|
         data = JSON.parse(e.data, symbolize_names: true)
         stream_price = data.dig(:k, :c).to_f
 
