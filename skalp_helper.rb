@@ -1,21 +1,21 @@
 module Binance
  class SkalpHelper
-    attr_reader :coin_symbol, :position_types, :entry_price, :quantity_coins, :prise_without_loss, :prise_close_trade, :long_position, :short_position, :allow_trade, :allow_to_close_breakeven
+    attr_reader :coin_symbol, :entry_price, :quantity_coins, :prise_without_loss, :prise_close_trade, :long_position, :short_position, :allow_trade, :allow_to_close_breakeven
 
-    def initialize(entry_price:, quantity_coins:, prise_close_trade:, prise_without_loss:, long_position: false, short_position: false)
-      @coin_symbol = ENV["COIN"]
-      @entry_price = entry_price
-      @quantity_coins = quantity_coins
-      @prise_close_trade = prise_close_trade
-      @prise_without_loss = prise_without_loss
-      @long_position = long_position
-      @short_position = short_position
+    def initialize(transaction_details: {})
+      @coin_symbol = transaction_details["coin_symbol"]
+      @entry_price = transaction_details["entry_price"].to_f
+      @quantity_coins = transaction_details["quantity_coins"].to_f
+      @prise_close_trade = transaction_details["prise_close_trade"].to_f
+      @prise_without_loss = transaction_details["prise_without_loss"].to_f
+      @long_position = true if transaction_details["long_position"] == "true"
+      @short_position = true if transaction_details["short_position"] == "true"
       @allow_trade = false
       @allow_to_close_breakeven = false
     end
 
     def start_skalp_helper
-     Binance::WebSocket.stream_request(stream__behavior: stream_price_behavior, coin_symbol: coin_symbol)
+      Binance::WebSocket.stream_request(stream__behavior: stream_price_behavior, coin_symbol: coin_symbol)
     end
 
 protected
