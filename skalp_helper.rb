@@ -158,7 +158,7 @@ private
     end
 
     def try_to_close_in_breakeven_short(stream_price:)
-      if stream_price > breakeven
+      if stream_price < breakeven
        @allow_to_close_breakeven = true
       elsif stream_price > entry_price && allow_to_close_breakeven == true
         puts "Closed position in without loss. Prce: #{stream_price}"
