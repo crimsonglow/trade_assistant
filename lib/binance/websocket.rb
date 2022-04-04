@@ -1,7 +1,7 @@
 module Binance
   class WebSocket
     class << self
-      BASE_URL = 'wss://fstream.binance.com'
+      BASE_URL_WEBSOCKET = 'wss://fstream.binance.com'
 
       # https://binance-docs.github.io/apidocs/futures/en/#mark-price-stream
       def stream_request(stream__behavior:, coin_symbol:)
@@ -25,7 +25,7 @@ module Binance
 
       def candlestick_streams_for_mark_price(methods:, coin_symbol:)
         passed_stream_url = "#{coin_symbol.downcase}@kline_1m"
-        url = "#{BASE_URL}/ws/#{passed_stream_url}"
+        url = "#{BASE_URL_WEBSOCKET}/ws/#{passed_stream_url}"
         create_stream url, methods: methods
       end
 

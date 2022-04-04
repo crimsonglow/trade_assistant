@@ -1,4 +1,4 @@
-require_relative 'binance'
+require_relative 'lib//binance.rb'
 
 request = Binance::SkalpHelper.new(transaction_details: ENV.to_hash)
 
