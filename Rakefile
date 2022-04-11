@@ -1,7 +1,7 @@
 require 'bundler/setup'
 require 'erb'
 require 'dotenv'
-require 'active_record'
+require 'activerecord'
 
 include ActiveRecord::Tasks
 
