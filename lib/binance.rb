@@ -4,7 +4,7 @@ require 'openssl'
 require 'base64'
 require 'faye/websocket'
 require 'eventmachine'
-require "awrence"
+require 'awrence'
 require 'byebug'
 
 require_relative 'binance/api/api_methods'

@@ -5,4 +5,9 @@ gem 'openssl'
 gem 'base64'
 gem 'faye/websocket'
 gem 'eventmachine'
-gem "awrence"
+gem 'awrence'
+gem 'bundler'
+gem 'erb'
+gem 'dotenv'
+gem 'active_record'
+
